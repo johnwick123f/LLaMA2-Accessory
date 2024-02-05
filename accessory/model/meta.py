@@ -535,6 +535,10 @@ class MetaModel(nn.Module):
             generate_until = cur_pos + 1
 
             generated = self.tokenizer.decode(tokens[start_pos:generate_until].tolist())
+            if generated.endswith(","):
+                generated = f"{generated} 0."
+            else:
+                pass
             for stop_symbol in additional_stop_symbols:
                 stop_pos = generated.find(stop_symbol)
                 if stop_pos != -1:
